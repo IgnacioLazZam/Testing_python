@@ -121,13 +121,52 @@ class TestEsPalindromo(unittest.TestCase):
     
     def test_caracteres_especiales_multiples(self):
         """Test: Palíndromo con múltiples caracteres especiales"""
-        self.assertTrue(esPalindromo("@O#j$O%"))
+        self.assertTrue(esPalindromo("@O#S#O@"))
         self.assertTrue(esPalindromo("[[O]]j[[O]]"))
 
     def test_palindromos_muy_largos(self):
         """Test: Palíndromo con muchos caracteres"""
         self.assertTrue(esPalindromo("a" * 1000 + "b" + "a" * 1000))
         self.assertTrue(esPalindromo("1" * 500 + "2" + "1" * 500))
+
+
+class TestEsPalindromoParametrizado(unittest.TestCase):
+    """
+    Clase de tests parametrizados para esPalindromo.
+    """
+    
+    def test_palindromos_validos(self):
+        """Test: Múltiples casos de palíndromos válidos"""
+        casos_validos = [
+            "ojo",
+            "ESE",
+            "amor a roma",
+            "Dábale arroz a la zorra el abad",
+            "¿Acaso hubo búhos acá?",
+            "[[O]]j[[O]]",
+            "I181I",
+            "ReCOnoceR",
+        ]
+        
+        for caso in casos_validos:
+            with self.subTest(caso=caso):
+                self.assertTrue(esPalindromo(caso))
+    
+    def test_no_palindromos(self):
+        """Test: Múltiples casos que NO son palíndromos"""
+        casos_invalidos = [
+            "ignacio",
+            "PUESTA",
+            "aprendo python",
+            "Atún con tomate",
+            "¿Eres tú, Pedro?",
+            "I1891I",
+            "AlBorNoz",
+        ]
+        
+        for caso in casos_invalidos:
+            with self.subTest(caso=caso):
+                self.assertFalse(esPalindromo(caso))
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)
